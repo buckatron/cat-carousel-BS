@@ -1,3 +1,4 @@
+<?php include "src/functions.php"?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
