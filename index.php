@@ -1,4 +1,10 @@
-<?php include "src/functions.php"?>
+<?php 
+    include("src/functions.php");
+    global $api_key;
+    $api_url = "https://api.thecatapi.com/v1/breeds?api_key=" . $api_key;
+    $response = file_get_contents($api_url);
+    $breeds = json_decode($response, true);
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -26,12 +32,26 @@
         </nav>
         <!-- Page content-->
         <div class="container mt-5">
+        <h1 class="mb-3">Cat Carousel</h1>
+            <p>Select a cat breed:</p>
 
-        
-
-
-
-
+            <form action="carousel.php" method="GET">
+                <div class="row">
+                    <div class="col-md-6">
+                        <select class="form-select" name="breed_id">
+                            <?php 
+                            // Populate dropdown with breed names and IDs
+                                foreach ($breeds as $breed) {
+                                    echo '<option value="' . $breed["id"] . '">' . $breed["name"] . '</option>';
+                                }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary">See cats</button>
+                    </div>
+                </div>
+            </form>
         </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
